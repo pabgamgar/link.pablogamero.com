@@ -1,0 +1,68 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Tu Regalo en Madrid">
+    <div
+        class="max-w-md w-full bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100"
+    >
+        <div
+            class="bg-indigo-600 h-32 flex items-center justify-center relative"
+        >
+            <span
+                class="text-6xl absolute -bottom-8 bg-white p-4 rounded-full shadow-lg"
+                >🎹</span
+            >
+        </div>
+
+        <div class="pt-12 p-8 text-center">
+            <span
+                class="text-indigo-600 font-semibold tracking-widest text-xs uppercase"
+                >Madrid, España</span
+            >
+            <h1 class="text-3xl mt-2 mb-4">Un Viaje Musical</h1>
+            <p class="text-slate-500 text-sm leading-relaxed">
+                Tienes un pase especial para vivir la magia en el <strong
+                    >Teatro Real</strong
+                >.
+            </p>
+
+            <div
+                class="my-8 p-4 bg-slate-50 rounded-2xl border border-dashed border-slate-300"
+            >
+                <p class="text-xs text-slate-400 uppercase tracking-tighter">
+                    Tu ubicación
+                </p>
+                <p class="text-lg font-semibold text-slate-800">Zona 1</p>
+                <div class="h-px bg-slate-200 my-3"></div>
+                <p class="text-xs text-slate-400 uppercase tracking-tighter">
+                    Fecha prevista
+                </p>
+                <p class="text-lg font-semibold text-slate-800">Marzo 2026</p>
+            </div>
+
+            <div class="text-left mb-8">
+                <h2 class="text-xl mb-3 text-indigo-900">
+                    Recomendación especial
+                </h2>
+                <div
+                    class="group p-4 rounded-xl border border-slate-100 hover:bg-indigo-50 transition-colors"
+                >
+                    <p class="font-bold">Ludovico Einaudi</p>
+                    <p class="text-sm text-slate-600">
+                        Una experiencia neoclásica inolvidable en el corazón de
+                        Madrid.
+                    </p>
+                </div>
+            </div>
+
+            <a
+                href="https://www.teatroreal.es/es/temporada-actual"
+                target="_blank"
+                class="inline-block w-full py-4 bg-indigo-600 text-white rounded-xl font-semibold shadow-lg shadow-indigo-200 hover:bg-indigo-700 transition-all active:scale-95"
+            >
+                Ver todos los eventos
+            </a>
+        </div>
+    </div>
+</Layout>

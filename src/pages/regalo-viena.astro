@@ -1,0 +1,73 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="Tu Regalo en Viena">
+    <div
+        class="max-w-md w-full bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100"
+    >
+        <div class="bg-rose-600 h-32 flex items-center justify-center relative">
+            <span
+                class="text-6xl absolute -bottom-8 bg-white p-4 rounded-full shadow-lg"
+                >🎻</span
+            >
+        </div>
+
+        <div class="pt-12 p-8 text-center">
+            <span
+                class="text-rose-600 font-semibold tracking-widest text-xs uppercase"
+                >Viena, Austria</span
+            >
+            <h1 class="text-3xl mt-2 mb-4">Gala de Ópera</h1>
+            <p class="text-slate-500 text-sm leading-relaxed">
+                Disfruta de la excelencia acústica en la histórica <strong
+                    >Wiener Staatsoper</strong
+                >.
+            </p>
+
+            <div
+                class="my-8 p-4 bg-slate-50 rounded-2xl border border-dashed border-slate-300"
+            >
+                <p class="text-xs text-slate-400 uppercase tracking-tighter">
+                    Tu ubicación
+                </p>
+                <p class="text-lg font-semibold text-slate-800">Zona 3</p>
+                <div class="h-px bg-slate-200 my-3"></div>
+                <p class="text-xs text-slate-400 uppercase tracking-tighter">
+                    Fecha prevista
+                </p>
+                <p class="text-lg font-semibold text-slate-800">Marzo 2026</p>
+            </div>
+
+            <div class="text-left mb-8">
+                <h2 class="text-xl mb-3 text-rose-900">Obras Destacadas</h2>
+                <div class="space-y-3">
+                    <div
+                        class="p-4 rounded-xl border border-slate-100 bg-rose-50/30"
+                    >
+                        <p class="font-bold text-rose-800">Don Pasquale</p>
+                        <p class="text-xs text-slate-600">
+                            Obra maestra de Donizetti.
+                        </p>
+                    </div>
+                    <div
+                        class="p-4 rounded-xl border border-slate-100 bg-rose-50/30"
+                    >
+                        <p class="font-bold text-rose-800">Madama Butterfly</p>
+                        <p class="text-xs text-slate-600">
+                            El drama clásico de Puccini.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <a
+                href="https://www.wiener-staatsoper.at/en/calendar/2026/march"
+                target="_blank"
+                class="inline-block w-full py-4 bg-rose-600 text-white rounded-xl font-semibold shadow-lg shadow-rose-200 hover:bg-rose-700 transition-all active:scale-95"
+            >
+                Ver calendario completo
+            </a>
+        </div>
+    </div>
+</Layout>
