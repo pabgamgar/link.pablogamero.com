@@ -1,36 +1,49 @@
 ---
+import "../styles/global.css";
+import { ROBOTS_DIRECTIVES } from "../config/privacy";
+
 interface Props {
     title: string;
+    description?: string;
+    lang?: "es" | "en";
+    noindex?: boolean;
 }
 
-const { title } = Astro.props;
-import "../styles/global.css";
+const { title, description = "", lang = "en", noindex = false } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={lang}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <title>{title}</title>
+        {description && <meta name="description" content={description} />}
+        {
+            noindex && (
+                <>
+                    <meta name="robots" content={ROBOTS_DIRECTIVES} />
+                    <meta name="googlebot" content={ROBOTS_DIRECTIVES} />
+                    <meta name="bingbot" content={ROBOTS_DIRECTIVES} />
+                    <meta name="referrer" content="no-referrer" />
+                </>
+            )
+        }
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:wght@700&display=swap"
+            href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap"
             rel="stylesheet"
         />
+        <slot name="head" />
     </head>
-    <body class="bg-slate-50 text-slate-900 font-['Inter'] antialiased">
-        <main
-            class="min-h-screen flex flex-col items-center justify-center p-4"
-        >
-            <slot />
-        </main>
+    <body class="min-h-screen bg-[#001414] text-[#f1f1f1] antialiased">
+        <slot />
     </body>
 </html>
 
 <style is:global>
-    h1,
-    h2 {
-        font-family: "Playfair Display", serif;
+    :root {
+        font-family: "Satoshi", "Space Grotesk", "Avenir Next", system-ui,
+            sans-serif;
     }
 </style>

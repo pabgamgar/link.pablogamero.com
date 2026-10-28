@@ -1,0 +1,5 @@
+# Cloudflare: applies to static files served straight from /public
+# (images, favicon), which never pass through the Astro middleware.
+/*
+  X-Robots-Tag: noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate, noai, noimageai
+  Referrer-Policy: no-referrer
