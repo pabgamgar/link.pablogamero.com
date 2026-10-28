@@ -1,15 +1,16 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
+import { defineConfig, sessionDrivers } from "astro/config";
 
-import tailwindcss from '@tailwindcss/vite';
-
-import cloudflare from '@astrojs/cloudflare';
+import cloudflare from "@astrojs/cloudflare";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
+  // Images are served as-is, so no Cloudflare Images binding is needed.
+  adapter: cloudflare({ imageService: "passthrough" }),
+  // The site has no sessions. Without this, the adapter adds a SESSION KV binding.
+  session: { driver: sessionDrivers.null() },
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
   },
-
-  adapter: cloudflare()
 });

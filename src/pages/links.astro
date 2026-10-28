@@ -1,0 +1,102 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Icon from "../components/Icon.astro";
+import Orbit from "../components/Orbit.astro";
+import SideCard from "../components/SideCard.astro";
+import { LINKS_CONFIG } from "../config/linkpage";
+import { SIDES, SIDE_ORDER, parseSide } from "../config/sides";
+import { buildDictionary } from "../lib/i18n";
+
+export const prerender = false;
+
+const { ui, defaultLanguage } = LINKS_CONFIG;
+// Each QR can open its own side: /links?side=personal
+const side = parseSide(Astro.url.searchParams.get("side"));
+const dictionary = buildDictionary(
+    ui,
+    SIDE_ORDER.map((id) => SIDES[id]),
+);
+---
+
+<Layout
+    title={ui.pageTitle.en}
+    description={ui.pageDescription.en}
+    lang={defaultLanguage}
+    noindex={true}
+>
+    <main class="relative isolate min-h-dvh overflow-hidden">
+        <div
+            class="absolute inset-0 -z-20 bg-cover bg-center opacity-30"
+            style="background-image: url('/bg.svg');"
+        >
+        </div>
+        <div
+            class="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_0%,rgba(97,204,186,0.28),transparent_45%),radial-gradient(circle_at_80%_70%,rgba(75,152,202,0.2),transparent_40%)]"
+        >
+        </div>
+
+        <div
+            class="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col gap-5 [@media(max-height:740px)]:gap-3 px-4 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+        >
+            <header class="flex items-center justify-between">
+                <span
+                    class="font-mono text-[11px] tracking-[0.08em] text-white/45 uppercase"
+                    >link.pablogamero.com</span
+                >
+                <div
+                    class="inline-flex gap-1 rounded-full border border-white/15 bg-black/30 p-1 backdrop-blur-md"
+                >
+                    {
+                        (["en", "es"] as const).map((lang) => (
+                            <button
+                                type="button"
+                                data-lang-toggle={lang}
+                                aria-pressed={lang === defaultLanguage ? "true" : "false"}
+                                class="h-8 rounded-full px-3 text-xs font-bold tracking-wide text-white/80 uppercase transition-colors aria-pressed:bg-white aria-pressed:text-[#001414]"
+                            >
+                                {lang}
+                            </button>
+                        ))
+                    }
+                </div>
+            </header>
+
+            <SideCard active={side} />
+
+            <div class="flex flex-1 items-center justify-center">
+                <div
+                    class="grid w-[min(100%,390px,max(300px,calc((100dvh-380px)*0.95)))] [container-type:inline-size]"
+                    data-orbits
+                >
+                    {SIDE_ORDER.map((id) => <Orbit side={SIDES[id]} active={id === side} />)}
+                </div>
+            </div>
+
+            <a
+                data-save-contact
+                href={`/contact.vcf?side=${side}`}
+                download
+                class="flex h-[52px] w-full items-center justify-center gap-2 rounded-full bg-[#61ccba] text-base font-bold text-[#001414] transition hover:brightness-110 active:scale-[0.98]"
+            >
+                <Icon name="userPlus" class="size-5" />
+                <span data-i18n="saveContact">{ui.saveContact.en}</span>
+            </a>
+        </div>
+    </main>
+
+    <script
+        type="application/json"
+        id="i18n-dictionary"
+        set:html={JSON.stringify(dictionary)}
+    />
+</Layout>
+
+<script>
+    import { initLanguage } from "../scripts/language";
+    import { initMotion } from "../scripts/motion";
+    import { initOrbits } from "../scripts/orbits";
+
+    initLanguage();
+    initOrbits();
+    initMotion();
+</script>
