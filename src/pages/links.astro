@@ -24,19 +24,10 @@ const dictionary = buildDictionary(
     lang={defaultLanguage}
     noindex={true}
 >
-    <main class="relative isolate min-h-dvh overflow-x-clip">
+    <!-- Only this scrolls: the background lives on <html> so Safari draws it under its bars. -->
+    <main class="relative isolate h-full overflow-x-clip overflow-y-auto overscroll-contain [scrollbar-width:none]">
         <div
-            class="pointer-events-none fixed inset-x-0 top-0 h-lvh -z-20 bg-cover bg-center opacity-30"
-            style="background-image: url('/bg.svg');"
-        >
-        </div>
-        <div
-            class="pointer-events-none fixed inset-x-0 top-0 h-lvh -z-10 bg-[radial-gradient(circle_at_20%_0%,rgba(97,204,186,0.28),transparent_45%),radial-gradient(circle_at_80%_70%,rgba(75,152,202,0.2),transparent_40%)]"
-        >
-        </div>
-
-        <div
-            class="mx-auto flex min-h-dvh w-full max-w-[430px] flex-col gap-5 [@media(max-height:740px)]:gap-3 px-4 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))]"
+            class="mx-auto flex min-h-full w-full max-w-[430px] flex-col gap-5 [@media(max-height:740px)]:gap-3 px-4 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))]"
         >
             <header class="flex items-center justify-between">
                 <span

@@ -13,7 +13,7 @@ const { title, description = "", lang = "en", noindex = false } = Astro.props;
 ---
 
 <!doctype html>
-<html lang={lang} class="bg-[#001414]">
+<html lang={lang}>
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -36,7 +36,7 @@ const { title, description = "", lang = "en", noindex = false } = Astro.props;
         />
         <slot name="head" />
     </head>
-    <body class="min-h-screen bg-[#001414] text-[#f1f1f1] antialiased">
+    <body class="h-full overflow-hidden text-[#f1f1f1] antialiased">
         <slot />
     </body>
 </html>
@@ -45,5 +45,20 @@ const { title, description = "", lang = "en", noindex = false } = Astro.props;
     :root {
         font-family: "Satoshi", "Space Grotesk", "Avenir Next", system-ui,
             sans-serif;
+    }
+    /* The page background sits on the root canvas, not on a fixed layer: iOS Safari
+       paints the canvas under its status bar and toolbar, but tints those areas a
+       flat colour when the background is a position:fixed element. The document
+       never scrolls (main does), so the background stays in place. */
+    html {
+        height: 100%;
+        overflow: hidden;
+        background:
+            radial-gradient(circle at 20% 0%, rgb(97 204 186 / 0.28), transparent 45%),
+            radial-gradient(circle at 80% 70%, rgb(75 152 202 / 0.2), transparent 40%),
+            /* Same as drawing bg.svg at 30% opacity over the base colour. */
+            linear-gradient(rgb(0 20 20 / 0.7), rgb(0 20 20 / 0.7)),
+            url("/bg.svg") center / cover no-repeat,
+            #001414;
     }
 </style>
