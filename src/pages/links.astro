@@ -24,7 +24,21 @@ const dictionary = buildDictionary(
     lang={defaultLanguage}
     noindex={true}
 >
-    <!-- Only this scrolls: the background lives on <html> so Safari draws it under its bars. -->
+    <!-- iOS Safari paints its status bar and toolbar areas with the background colour of
+         a fixed element touching that edge. These strips set the colour to match the
+         gradient's top and bottom edges, then fade out so they leave no visible seam. -->
+    <div
+        aria-hidden="true"
+        class="pointer-events-none fixed inset-x-0 top-0 z-10 h-8 bg-[#103532] [mask-image:linear-gradient(#000,transparent)]"
+    >
+    </div>
+    <div
+        aria-hidden="true"
+        class="pointer-events-none fixed inset-x-0 bottom-0 z-10 h-8 bg-[#031c1c] [mask-image:linear-gradient(to_top,#000,transparent)]"
+    >
+    </div>
+
+    <!-- Only this scrolls: the background lives on <html>, so it stays in place. -->
     <main class="relative isolate h-full overflow-x-clip overflow-y-auto overscroll-contain [scrollbar-width:none]">
         <div
             class="mx-auto flex min-h-full w-full max-w-[430px] flex-col gap-5 [@media(max-height:740px)]:gap-3 px-4 pt-[max(1.5rem,env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))]"
