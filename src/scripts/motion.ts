@@ -1,16 +1,19 @@
 import { polar } from "../lib/orbit";
 
-// Every ring turns at the same speed, so the whole system rotates as one and
-// nodes keep the spacing they were laid out with. Per-ring speeds made nodes on
-// neighbouring rings line up and their labels overlap.
-const PERIOD_S = 240;
+// Kepler-like speeds: a ring at REFERENCE_RADIUS takes OUTER_PERIOD_S per lap,
+// inner rings go faster (ω ∝ r^-1.5). Slow enough that nodes stay easy to tap.
+const REFERENCE_RADIUS = 160;
+const OUTER_PERIOD_S = 240;
 const RESUME_DELAY_MS = 1500;
-const DEGREES_PER_SECOND = 360 / PERIOD_S;
+
+const degreesPerSecond = (radius: number) =>
+  (360 / OUTER_PERIOD_S) * (REFERENCE_RADIUS / radius) ** 1.5;
 
 interface Body {
   el: HTMLElement;
   radius: number;
   startAngle: number;
+  speed: number;
 }
 
 const readBodies = (): Body[] =>
@@ -18,12 +21,12 @@ const readBodies = (): Body[] =>
     const radius = Number(el.dataset.radius);
     const startAngle = Number(el.dataset.angle);
     if (!Number.isFinite(radius) || !Number.isFinite(startAngle) || radius <= 0) return [];
-    return [{ el, radius, startAngle }];
+    return [{ el, radius, startAngle, speed: degreesPerSecond(radius) }];
   });
 
 // Writes the offset the CSS transform reads. Unrounded, so movement stays sub-pixel.
 const place = (body: Body, elapsedS: number) => {
-  const { x, y } = polar(body.radius, body.startAngle + DEGREES_PER_SECOND * elapsedS);
+  const { x, y } = polar(body.radius, body.startAngle + body.speed * elapsedS);
   body.el.style.setProperty("--ox", String(x));
   body.el.style.setProperty("--oy", String(y));
 };
